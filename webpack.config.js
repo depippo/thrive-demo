@@ -5,35 +5,25 @@ const webpack = require('webpack');
 const buildDirectory = './dist/';
 var APP_DIR = path.resolve(__dirname, 'src/');
 module.exports = {
-  entry: APP_DIR + '/index.js',
-  devServer: {
-    hot: true,
-    inline: true,
-    port: 7700,
-    historyApiFallback: true,
-  },
-  resolve: {
-    extensions: ['', '.js', '.jsx'],
-  },
+  entry: [
+    './src/index.js'
+  ],
   output: {
-    path: path.resolve(buildDirectory),
-    filename: 'app.js',
-    publicPath: 'http://localhost:7700/dist',
-  },
-  externals: {
-    'cheerio': 'window',
-    'react/lib/ExecutionEnvironment': true,
-    'react/lib/ReactContext': true,
+    path: __dirname,
+    publicPath: '/',
+    filename: 'bundle.js'
   },
   module: {
     loaders: [{
-      test: /\.jsx?$/,
-      exclude: /(node_modules|bower_components)/,
-      loader: 'babel',
+      test: /\.js$/,
+      exclude: /node_modules/,
+      loader: 'babel-loader',
       query: {
-        presets: ['react', 'es2015', 'stage-0'],
-      },
-    }],
+        presets: ['es2015', 'react']
+      }
+    }]
   },
-  plugins: [],
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  }
 };
